@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <script src="https://kit.fontawesome.com/e13cc553b8.js" crossorigin="anonymous"></script>
+    <style>
+        form{
+            width: 50%;
+            margin: 50px auto;
+            text-align: center;
+        }
+        input{
+            height: 18px;
+            padding-left: 5px;
+        }
+        #todo-display{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #todo-display div{
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="name">Enter Technical Language : </label>
+        <input type="text" name="name" id="name">
+        <button class="btn" id="addbtn">Add</button>
+    </form>
+    <div id="todo-display"></div>
+    <script>
+        let btn = document.getElementById("addbtn");
+        let language = new Map();
+        // let txt = "";
+        btn.addEventListener("click", function(e){
+            e.preventDefault();
+            let lang = document.getElementById("name").value;
+            language.set(language.size,lang);
+            // console.log(language.get(language.size - 1));
+            let dis = document.getElementById("todo-display");
+            dis.innerHTML = dis.innerHTML + `<div><li>${language.get(language.size - 1)}</li><i class="fa fa-times" id="${language.size - 1}" onclick="doo(this.id)"></i></div>`;
+        });
+
+        function doo(e){
+            console.log(typeof e)
+            language.delete(Number.parseInt(e));
+            let dis = document.getElementById("todo-display");
+            dis.innerHTML = "";
+                let txt = "";
+                for(let [key, value] of language){
+                    txt = txt + `<div><li>${value}</li><i class="fa fa-times" id="${key}" onclick="doo(this.id)"></i></div>`;
+                }
+                dis.innerHTML = txt;
+        }
+
+        // let removeButton = document.querySelectorAll("i");
+        // removeButton.forEach((element)=>{
+        //     element.addEventListener("click", function(e){
+        //         let k = e.target.id;
+        //         language.delete(k);
+        //         let dis = document.getElementById("todo-display");
+        //         let txt = "";
+        //         for(let [key, value] of language){
+        //             txt = txt + `<div><li>${value}</li><i class="fa fa-times"></i></div>`;
+        //         }
+        //         dis.innerHTML = txt;
+        //     });
+        // })
+    </script>
+</body>
+</html>
