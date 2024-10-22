@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            /* text-align: center; */
+            /* margin: 20px auto; */
+        }
+        form{
+            background-color: rgb(60, 60, 60);
+            color: #fff;
+            width: 30%;
+            margin: 50px auto;
+            padding: 20px 10px;
+        }
+        input{
+            width: 250px;
+            height: 25px;
+            padding-left: 5px;
+        }
+        label{
+            font-weight: 100;
+            letter-spacing: 0.5px;
+        }
+        #msg{
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="#">
+        <label for="">Enter Password : </label>
+        <input type="text" id="password">
+        <span id="msg"></span>
+    </form>
+    <script>
+        let pass = document.getElementById("password");
+        let regExp = /^[A-Z]{1}[a-zA-z0-9]{3,9}$/;
+
+        function checkPassword(regularExpression, password, callback){
+            if(!regularExpression.test(password)){
+                if(password == ""){
+                    let tell = "";
+                    callback(tell);
+                }
+                else{
+                    let tell = "Password's first letter should be capital and should be between 4 to 10 characters long. Space and special characters not allowed"
+                    callback(tell);
+                }
+            }
+            else{
+                let tell = "Valid";
+                callback(tell);
+            }
+        }
+
+        function message(mes){
+            document.getElementById("msg").innerHTML = mes;
+        }
+
+        pass.addEventListener("keyup", function(){
+            let password = pass.value;
+            console.log(password);
+            checkPassword(regExp, password, message);
+        })
+    </script>
+</body>
+</html>
